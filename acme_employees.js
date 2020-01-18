@@ -31,9 +31,8 @@ const employees = [
   // }
 
   // FILTER
-	// (returns an array, not just entry)
 	// function findEmployeeByName(name, list) {
-	// 	return list.filter(entry => entry.name === name)
+	// 	return list.filter(entry => entry.name === name)[0]
 	// }
 
   // RECURSION
