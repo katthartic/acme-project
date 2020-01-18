@@ -29,6 +29,12 @@ const employees = [
   //   }
   // }
 
+  // FILTER
+	// (returns an array, not just entry)
+	// function findEmployeeByName(name, list) {
+	// 	return list.filter(entry => entry.name === name)
+	// }
+
   // RECURSION
   function findEmployeeByName(name, list) {
     if (list[0].name === name) return list[0]
@@ -50,6 +56,11 @@ const employees = [
   //     if ('managerId' in employee && employee.managerId === entry.id) return entry
   //   }
   // }
+
+  // FILTER
+	// function findManagerFor(employee, list) {
+	// 	return list.filter(entry => employee.managerId === entry.id)
+	// }
   
   // RECURSION
   function findManagerFor(employee, list) {
