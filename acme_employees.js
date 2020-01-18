@@ -1,4 +1,5 @@
 /* eslint-disable no-trailing-spaces */
+
 const employees = [
     { id: 1, name: 'moe'},
     { id: 2, name: 'larry', managerId: 1},
@@ -99,25 +100,35 @@ const employees = [
 		return [...coworkers, ...findCoworkersFor(employee, altList)]
 	}
   
+  console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));
+  /*[ { id: 3, name: 'curly', managerId: 1 },
+    { id: 99, name: 'lucy', managerId: 1 } ] */
+  spacer('');
+  
+  spacer('findManagementChain for moe')
+  //given an employee and a list of employees, return a the management chain for that employee. The management chain starts from the employee with no manager with the passed in employees manager 
 
-  console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
-  [ { id: 3, name: 'curly', managerId: 1 },
-    { id: 99, name: 'lucy', managerId: 1 } ]
+  // RECURSION & FILTER
+	function findManagementChainForEmployee(employee, list) {
+		let chain = []
+    if (!('managerId' in employee)) return chain
+    
+		chain = list.filter(entry => entry.id === employee.managerId)
+		return [...findManagementChainForEmployee(chain[0], list), ...chain]
+  }
+  
+  
+  console.log(findManagementChainForEmployee(findEmployeeByName('moe', employees), employees));//[  ]
+  spacer('');
+  
+  spacer('findManagementChain for shep Jr.')
+  console.log(findManagementChainForEmployee(findEmployeeByName('shep Jr.', employees), employees));/*
+  [ { id: 1, name: 'moe' },
+    { id: 2, name: 'larry', managerId: 1 },
+    { id: 4, name: 'shep', managerId: 2 }]
   */
-  
-  // spacer('');
-  
-  // spacer('findManagementChain for moe')
-  // //given an employee and a list of employees, return a the management chain for that employee. The management chain starts from the employee with no manager with the passed in employees manager 
-  // console.log(findManagementChainForEmployee(findEmployeeByName('moe', employees), employees));//[  ]
-  // spacer('');
-  
-  // spacer('findManagementChain for shep Jr.')
-  // console.log(findManagementChainForEmployee(findEmployeeByName('shep Jr.', employees), employees));/*
-  // [ { id: 1, name: 'moe' },
-  //   { id: 2, name: 'larry', managerId: 1 },
-  //   { id: 4, name: 'shep', managerId: 2 }]
-  // */
+
+
   // spacer('');
   
   
