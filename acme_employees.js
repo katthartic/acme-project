@@ -43,11 +43,23 @@ const employees = [
   spacer('findManagerFor Shep')
   //given an employee and a list of employees, return the employee who is the manager
 
+  // LOOP
+  // function findManagerFor(employee, list) {
+	// 	for (let i = 0; i < list.length; i++) {
+  //     const entry = list[i]
+  //     if ('managerId' in employee && employee.managerId === entry.id) return entry
+  //   }
+  // }
+  
+  // RECURSION
   function findManagerFor(employee, list) {
-		for (let i = 0; i < list.length; i++) {
-      const entry = list[i]
-      if ('managerId' in employee && employee.managerId === entry.id) return entry
-    }
+		if (!('managerId' in employee)) return 'Employee has no manager'
+
+		let entry = list[0]
+		if (employee.managerId === entry.id) return entry
+		
+		let altList = list.slice(1)
+		return findManagerFor(employee, altList)
 	}
 
   console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
