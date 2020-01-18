@@ -76,13 +76,18 @@ const employees = [
   console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
   spacer('')
   
-  // spacer('findCoworkersFor Larry')
-  
-  // //given an employee and a list of employees, return the employees who report to the same manager
-  // console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
-  // [ { id: 3, name: 'curly', managerId: 1 },
-  //   { id: 99, name: 'lucy', managerId: 1 } ]
-  // */
+  spacer('findCoworkersFor Larry')
+  //given an employee and a list of employees, return the employees who report to the same manager
+
+  //FILTER
+	function findCoworkersFor(employee, list) {
+		return list.filter(entry => employee.managerId === entry.managerId && employee.id !== entry.id)
+	}
+
+  console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
+  [ { id: 3, name: 'curly', managerId: 1 },
+    { id: 99, name: 'lucy', managerId: 1 } ]
+  */
   
   // spacer('');
   
