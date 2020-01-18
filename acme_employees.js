@@ -31,11 +31,11 @@ const employees = [
 
   // RECURSION
   function findEmployeeByName(name, list) {
-    if (list.length === 0) return 'Employee not found!'
     if (list[0].name === name) return list[0]
-    list.shift()
-    return findEmployeeByName(name, list)
-}
+    if (list.length === 1) return 'Employee not found!'
+    let altList = list.slice(1)
+    return findEmployeeByName(name, altList)
+  }
 
   console.log(findEmployeeByName('moe', employees));//{ id: 1, name: 'moe' }
   spacer('')
@@ -46,7 +46,7 @@ const employees = [
   function findManagerFor(employee, list) {
 		for (let i = 0; i < list.length; i++) {
       const entry = list[i]
-      if ('managerID' in employee && employee.managerId === entry.id) return entry
+      if ('managerId' in employee && employee.managerId === entry.id) return entry
     }
 	}
 
