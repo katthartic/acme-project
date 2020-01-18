@@ -84,23 +84,20 @@ const employees = [
 	// 	return list.filter(entry => employee.managerId === entry.managerId && employee.id !== entry.id)
   // }
   
-  // RECURSION
+	// RECURSION
   function findCoworkersFor(employee, list) {
     let coworkers = []
-
     if (!('managerId' in employee)) return 'This is the big boss'
-    if (list.length === 0) return []
+    if (list.length === 0) return coworkers
 
     let entry = list[0]
-
     if (employee.managerId === entry.managerId && employee.id !== entry.id) {
       coworkers.push(entry)
-    } else {
-      let altList = list.slice(1)
-      return [...coworkers + findCoworkersFor(employee, altList)]
     }
 
-  }
+    let altList = list.slice(1)
+		return [...coworkers, ...findCoworkersFor(employee, altList)]
+	}
   
 
   console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
