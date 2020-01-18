@@ -79,10 +79,29 @@ const employees = [
   spacer('findCoworkersFor Larry')
   //given an employee and a list of employees, return the employees who report to the same manager
 
-  //FILTER
-	function findCoworkersFor(employee, list) {
-		return list.filter(entry => employee.managerId === entry.managerId && employee.id !== entry.id)
-	}
+  // FILTER
+	// function findCoworkersFor(employee, list) {
+	// 	return list.filter(entry => employee.managerId === entry.managerId && employee.id !== entry.id)
+  // }
+  
+  // RECURSION
+  function findCoworkersFor(employee, list) {
+    let coworkers = []
+
+    if (!('managerId' in employee)) return 'This is the big boss'
+    if (list.length === 0) return []
+
+    let entry = list[0]
+
+    if (employee.managerId === entry.managerId && employee.id !== entry.id) {
+      coworkers.push(entry)
+    } else {
+      let altList = list.slice(1)
+      return [...coworkers + findCoworkersFor(employee, altList)]
+    }
+
+  }
+  
 
   console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));/*
   [ { id: 3, name: 'curly', managerId: 1 },
