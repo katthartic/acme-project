@@ -21,16 +21,37 @@ const employees = [
   spacer('findEmployeeByName Moe')
   // given a name and array of employees, return employee
   
+  // LOOP
+  // function findEmployeeByName(name, list) {
+  //   for (let i = 0; i < list.length; i++) {
+  //     const item = list[i]
+  //     if (item.name === name) return item
+  //   }
+  // }
+
+  // RECURSION
   function findEmployeeByName(name, list) {
-    
-  }
+    if (list.length === 0) return 'Employee not found!'
+    if (list[0].name === name) return list[0]
+    list.shift()
+    return findEmployeeByName(name, list)
+}
+
   console.log(findEmployeeByName('moe', employees));//{ id: 1, name: 'moe' }
   spacer('')
   
-  // spacer('findManagerFor Shep')
-  // //given an employee and a list of employees, return the employee who is the manager
-  // console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
-  // spacer('')
+  spacer('findManagerFor Shep')
+  //given an employee and a list of employees, return the employee who is the manager
+
+  function findManagerFor(employee, list) {
+		for (let i = 0; i < list.length; i++) {
+      const entry = list[i]
+      if ('managerID' in employee && employee.managerId === entry.id) return entry
+    }
+	}
+
+  console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
+  spacer('')
   
   // spacer('findCoworkersFor Larry')
   
