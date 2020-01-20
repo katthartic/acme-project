@@ -137,7 +137,8 @@ const employees = [
 			employee.reports = []
 			employee.reports = orgList.filter(entry => employee.id === entry.managerId)
 			employee.reports.map(entry => internalTree(entry, orgList))
-		}
+    }
+    
 		internalTree(tree, list)
 		return tree
 	}
@@ -199,16 +200,32 @@ const employees = [
   */
   spacer('');
   
-  // spacer('displayManagementTree')
-  // //given a tree of employees, generate a display which displays the hierarchy
-  // displayManagementTree(generateManagementTree(employees));/*
-  // moe
-  // -larry
-  // --shep
-  // ---shep Jr.
-  // -curly
-  // --groucho
-  // ---harpo
-  // -lucy
-  // */
+  spacer('displayManagementTree')
+  //given a tree of employees, generate a display which displays the hierarchy
+
+  function displayManagementTree(orgTree) {
+		console.log(orgTree.name)
+
+		const innerTree = (arr, count) => {
+			const dashes = new Array(count).fill('-').join('')
+			arr.map(entry => {
+        console.log(`${dashes}${entry.name}`)
+			  count++
+			  return innerTree(entry.reports, count)
+		  })
+		}
+		innerTree(orgTree.reports, 1)
+	}
+
+
+  displayManagementTree(generateManagementTree(employees));/*
+  moe
+  -larry
+  --shep
+  ---shep Jr.
+  -curly
+  --groucho
+  ---harpo
+  -lucy
+  */
 
