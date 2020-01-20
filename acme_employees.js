@@ -213,10 +213,10 @@ const employees = [
 		console.log(orgTree.name)
 
 		const innerTree = (arr, count) => {
-			const dashes = new Array(count).fill('-').join('')
+      const dashes = new Array(count).fill('-').join('')
 			arr.map(entry => {
-                console.log(`${dashes}${entry.name}`)
-			  count++
+        console.log(`${dashes}${entry.name}`)
+        count++
 			  return innerTree(entry.reports, count)
 		  })
 		}
@@ -235,3 +235,4 @@ const employees = [
   ---harpo
   -lucy
   */
+
