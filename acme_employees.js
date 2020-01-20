@@ -43,7 +43,9 @@ const employees = [
 		return list.filter(entry => entry.name === name)[0]
 	}
 
-  console.log(findEmployeeByName('moe', employees));//{ id: 1, name: 'moe' }
+  console.log(findEmployeeByName('moe', employees));
+  //{ id: 1, name: 'moe' }
+
   spacer('')
   
   spacer('findManagerFor Shep')
@@ -71,7 +73,9 @@ const employees = [
 		return list.filter(entry => employee.managerId === entry.id)
 	}
 
-  console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));//{ id: 4, name: 'shep', managerId: 2 }
+  console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));
+  //{ id: 4, name: 'shep', managerId: 2 }
+
   spacer('')
   
   spacer('findCoworkersFor Larry')
@@ -98,6 +102,7 @@ const employees = [
   console.log(findCoworkersFor(findEmployeeByName('larry', employees), employees));
   /*[ { id: 3, name: 'curly', managerId: 1 },
     { id: 99, name: 'lucy', managerId: 1 } ] */
+
   spacer('');
   
   spacer('findManagementChain for moe')
@@ -113,19 +118,20 @@ const employees = [
   }
   
   
-  console.log(findManagementChainForEmployee(findEmployeeByName('moe', employees), employees));//[  ]
+  console.log(findManagementChainForEmployee(findEmployeeByName('moe', employees), employees));
+  //[  ]
+
   spacer('');
   
   spacer('findManagementChain for shep Jr.')
-  console.log(findManagementChainForEmployee(findEmployeeByName('shep Jr.', employees), employees));/*
+  console.log(findManagementChainForEmployee(findEmployeeByName('shep Jr.', employees), employees));
+  /*
   [ { id: 1, name: 'moe' },
     { id: 2, name: 'larry', managerId: 1 },
     { id: 4, name: 'shep', managerId: 2 }]
   */
 
-
   spacer('');
-  
   
   spacer('generateManagementTree')
   //given a list of employees, generate a tree like structure for the employees, starting with the employee who has no manager. Each employee will have a reports property which is an array of the employees who report directly to them.
@@ -218,7 +224,8 @@ const employees = [
 	}
 
 
-  displayManagementTree(generateManagementTree(employees));/*
+  displayManagementTree(generateManagementTree(employees));
+  /*
   moe
   -larry
   --shep
@@ -228,4 +235,3 @@ const employees = [
   ---harpo
   -lucy
   */
-
