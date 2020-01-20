@@ -131,16 +131,15 @@ const employees = [
   //given a list of employees, generate a tree like structure for the employees, starting with the employee who has no manager. Each employee will have a reports property which is an array of the employees who report directly to them.
   
   function generateManagementTree(list) {
-		list[0].reports = []
-
-		list.reduce((acc, entry) => {
-			if (entry.managerId === acc.id) {
-				acc.reports = [...acc.reports, entry]
-				list.splice(list.indexOf(entry), 1)
-			}
-			return acc
-		})
-		return list
+    let tree = list[0]
+    
+		function internalTree(employee, orgList) {
+			employee.reports = []
+			employee.reports = orgList.filter(entry => employee.id === entry.managerId)
+			employee.reports.map(entry => internalTree(entry, orgList))
+		}
+		internalTree(tree, list)
+		return tree
 	}
   
   console.log(JSON.stringify(generateManagementTree(employees), null, 2));
