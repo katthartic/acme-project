@@ -40,7 +40,7 @@ const employees = [
 
   // FILTER
 	function findEmployeeByName(name, list) {
-		return list.filter(entry => entry.name === name)[0]
+    return list.filter(entry => entry.name === name)[0]
 	}
 
   console.log(findEmployeeByName('moe', employees));
@@ -70,7 +70,7 @@ const employees = [
 
   // FILTER
 	function findManagerFor(employee, list) {
-		return list.filter(entry => employee.managerId === entry.id)
+    return list.filter(entry => employee.managerId === entry.id)
 	}
 
   console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));
@@ -217,7 +217,8 @@ const employees = [
 			arr.map(entry => {
         console.log(`${dashes}${entry.name}`)
         count++
-			  return innerTree(entry.reports, count)
+        innerTree(entry.reports, count)
+        count--
 		  })
 		}
 		innerTree(orgTree.reports, 1)
