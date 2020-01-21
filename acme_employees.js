@@ -139,7 +139,7 @@ spacer('generateManagementTree')
 function generateManagementTree(list) {
   let tree = list[0]
 
-  function internalTree(employee, orgList) {
+  const internalTree = (employee, orgList) => {
     employee.reports = []
     employee.reports = orgList.filter(entry => employee.id === entry.managerId)
     employee.reports.map(entry => internalTree(entry, orgList))
