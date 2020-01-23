@@ -140,9 +140,8 @@ function generateManagementTree(list) {
   let tree = list[0]
 
   const internalTree = (employee, orgList) => {
-    employee.reports = []
     employee.reports = orgList.filter(entry => employee.id === entry.managerId)
-    employee.reports.map(entry => internalTree(entry, orgList))
+    employee.reports.forEach(entry => internalTree(entry, orgList))
   }
 
   internalTree(tree, list)
@@ -216,7 +215,7 @@ function displayManagementTree(orgTree) {
 
   const innerTree = (arr, count) => {
     const dashes = new Array(count).fill('-').join('')
-    arr.map(entry => {
+    arr.forEach(entry => {
       console.log(`${dashes}${entry.name}`)
       count++
       innerTree(entry.reports, count)
