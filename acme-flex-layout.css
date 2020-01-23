@@ -16,56 +16,89 @@ nav a {
     text-decoration: none;
 }
 
-nav a:first-child{
+nav > a:first-child{
+    flex: 1;
     font-size: 2rem;
-
 }
 
-nav a:last-child {
-    padding-right: 3rem;
+nav > div {
+    flex: 4;
+    display: flex;
+    justify-content: space-around;
 }
 
-h2 {
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+h2, h4 {
     color: rgb(101, 101, 101);
-    padding-left: 1rem;
 }
 
 form {
     display: flex;
+    align-self: center;
     flex-direction: column;
     border: solid 1px black;
+    border-radius: .5rem;
     padding: 1rem;
     width: 60%
 }
 
-.form-group {
+form > div {
     display: flex;
+    padding: 1rem 1rem 0rem 0rem;
+}
 
+form label {
+    font-weight: 600;
+    font-size: small;
+}
+
+p {
+    font-weight: 400;
 }
 
 .selected {
     font-weight: 700;
 }
 
-#create-user {
+/* #create-user {
     display: flex;
     justify-content: space-around;
+} */
+
+#main-title {
+    padding-left: 1rem;
 }
 
 #user-cards {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
 }
 
 #user-cards > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0.5rem;
     border: solid 1px black;
-    padding: 2rem;
-    margin: 1rem;
-    width: calc(100% / 3 - 2rem);
+    border-radius: 1rem;
+    width: calc(100% / 3 - 6rem);
+    
 }
 
 @media (max-width: 600px) {
     #user-cards > div {
         width: 100%;
+    }
+}
+
+@media (max-width: 400px) {
+    nav > div {
+        flex-direction: column;
+        align-items: flex-end;
     }
 }
