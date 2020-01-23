@@ -39,9 +39,7 @@ spacer('findEmployeeByName Moe')
 // }
 
 // FILTER
-function findEmployeeByName(name, list) {
-  return list.filter(entry => entry.name === name)[0]
-}
+const findEmployeeByName = (name, list) => list.filter(entry => entry.name === name)[0]
 
 console.log(findEmployeeByName('moe', employees));
 //{ id: 1, name: 'moe' }
@@ -69,9 +67,7 @@ spacer('findManagerFor Shep')
 // }
 
 // FILTER
-function findManagerFor(employee, list) {
-  return list.filter(entry => employee.managerId === entry.id)[0]
-}
+const findManagerFor = (employee, list) => list.filter(entry => employee.managerId === entry.id)[0]
 
 console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));
 //{ id: 4, name: 'shep', managerId: 2 }
