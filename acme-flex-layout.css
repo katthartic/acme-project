@@ -1,5 +1,71 @@
+body {
+    font-family: Verdana;
+}
+
 nav {
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 100;
     background-color: dodgerblue;
+    padding: 1rem;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+}
+
+nav a:first-child{
+    font-size: 2rem;
+
+}
+
+nav a:last-child {
+    padding-right: 3rem;
+}
+
+h2 {
+    color: rgb(101, 101, 101);
+    padding-left: 1rem;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px black;
+    padding: 1rem;
+    width: 60%
+}
+
+.form-group {
+    display: flex;
+
+}
+
+.selected {
+    font-weight: 700;
+}
+
+#create-user {
+    display: flex;
+    justify-content: space-around;
+}
+
+#user-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#user-cards > div {
+    border: solid 1px black;
+    padding: 2rem;
+    margin: 1rem;
+    width: calc(100% / 3 - 2rem);
+}
+
+@media (max-width: 600px) {
+    #user-cards > div {
+        width: 100%;
+    }
 }
