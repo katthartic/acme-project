@@ -39,6 +39,7 @@ spacer('findEmployeeByName Moe')
 // }
 
 // FILTER
+//[pk] very good -- one improvement to make: use .find instead of .filter and then you don't need the [0]!
 const findEmployeeByName = (name, list) => list.filter(entry => entry.name === name)[0]
 
 console.log(findEmployeeByName('moe', employees));
@@ -67,6 +68,7 @@ spacer('findManagerFor Shep')
 // }
 
 // FILTER
+//[pk] great -- see above
 const findManagerFor = (employee, list) => list.filter(entry => employee.managerId === entry.id)[0]
 
 console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));
@@ -91,6 +93,7 @@ spacer('findCoworkersFor Larry')
 // }
 
 // FILTER
+//[pk] c'est parfait!
 function findCoworkersFor(employee, list) {
   return list.filter(entry => employee.managerId === entry.managerId && employee.id !== entry.id)
 }
@@ -106,10 +109,14 @@ spacer('findManagementChain for moe')
 //given an employee and a list of employees, return a the management chain for that employee. The management chain starts from the employee with no manager with the passed in employees manager 
 
 // RECURSION & FILTER
+//[pk] great use of recursion! well done.
 function findManagementChainForEmployee(employee, list) {
   let chain = []
   if (!('managerId' in employee)) return chain
+  //[pk] wow i didn't know you could use "in" like that. you learn something new everyday!
+  //[pk] fyi "!employee.managerId" would also work
   chain = list.filter(entry => entry.id === employee.managerId)
+  //[pk] "find" more appropriate here, and would save you the "[0]" and the "..." on the next line!
   return [...findManagementChainForEmployee(chain[0], list), ...chain]
 }
   
@@ -132,7 +139,9 @@ spacer('generateManagementTree')
 //given a list of employees, generate a tree like structure for the employees, starting with the employee who has no manager. Each employee will have a reports property which is an array of the employees who report directly to them.
 
 // FILTER, MAP, & RECURSION
+//[pk] really great!
 function generateManagementTree(list) {
+  //[pk] cheating! you should ID the manager by lack of managerId property (sort of like how you do in the previous function!)
   let tree = list[0]
 
   const internalTree = (employee, orgList) => {
@@ -206,9 +215,10 @@ spacer('displayManagementTree')
 //given a tree of employees, generate a display which displays the hierarchy
 
 // MAP & RECURSION
+//[pk] great! you could save having to decrement count if you moved the increment outside of the forEach -- see solution
 function displayManagementTree(orgTree) {
   console.log(orgTree.name)
-
+  
   const innerTree = (arr, count) => {
     const dashes = new Array(count).fill('-').join('')
     arr.forEach(entry => {
