@@ -39,8 +39,8 @@ spacer('findEmployeeByName Moe')
 // }
 
 // FILTER
-//[pk] very good -- one improvement to make: use .find instead of .filter and then you don't need the [0]!
-const findEmployeeByName = (name, list) => list.filter(entry => entry.name === name)[0]
+//[pk] very good -- one improvement to make: use .find instead of .filter and then you don't need the [0]! [ADDRESSED 2020-01-30]
+const findEmployeeByName = (name, list) => list.find(entry => entry.name === name)
 
 console.log(findEmployeeByName('moe', employees));
 //{ id: 1, name: 'moe' }
@@ -68,8 +68,8 @@ spacer('findManagerFor Shep')
 // }
 
 // FILTER
-//[pk] great -- see above
-const findManagerFor = (employee, list) => list.filter(entry => employee.managerId === entry.id)[0]
+//[pk] great -- see above [ADDRESSED 2020-01-30]
+const findManagerFor = (employee, list) => list.find(entry => employee.managerId === entry.id)
 
 console.log(findManagerFor(findEmployeeByName('shep Jr.', employees), employees));
 //{ id: 4, name: 'shep', managerId: 2 }
@@ -114,10 +114,10 @@ function findManagementChainForEmployee(employee, list) {
   let chain = []
   if (!('managerId' in employee)) return chain
   //[pk] wow i didn't know you could use "in" like that. you learn something new everyday!
-  //[pk] fyi "!employee.managerId" would also work
-  chain = list.filter(entry => entry.id === employee.managerId)
-  //[pk] "find" more appropriate here, and would save you the "[0]" and the "..." on the next line!
-  return [...findManagementChainForEmployee(chain[0], list), ...chain]
+  //[pk] fyi "!employee.managerId" would also work 
+  chain = list.find(entry => entry.id === employee.managerId)
+  //[pk] "find" more appropriate here, and would save you the "[0]" and the "..." on the next line! [ADDRESSED 2020-01-30]
+  return [...findManagementChainForEmployee(chain, list), chain]
 }
   
 console.log(findManagementChainForEmployee(findEmployeeByName('moe', employees), employees));
@@ -141,8 +141,9 @@ spacer('generateManagementTree')
 // FILTER, MAP, & RECURSION
 //[pk] really great!
 function generateManagementTree(list) {
-  //[pk] cheating! you should ID the manager by lack of managerId property (sort of like how you do in the previous function!)
-  let tree = list[0]
+  //[pk] cheating! you should ID the manager by lack of managerId property (sort of like how you do in the previous function!) [ADDRESSED 2020-01-30]
+
+  let tree = list.find(entry => !entry.managerId)
 
   const internalTree = (employee, orgList) => {
     employee.reports = orgList.filter(entry => employee.id === entry.managerId)
