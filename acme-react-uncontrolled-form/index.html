@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+    body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+    }
+
+    select, button {
+        height: 2rem;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    form {
+        border: solid black 1px;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem;
+    }
+</style>
 <body>
-    
+    <div id="root"></div>
+    <script type='text/babel'>
+        const {Component} = React
+        const {render} = ReactDOM
+
+        const MyNumberChoser = ( {myNumber, onUpdate, isLucky} ) => {
+            return (
+                <form onSubmit={ ev => ev.preventDefault()}>
+                    <select value={myNumber} onChange={ ev => onUpdate({ myNumber: ev.target.value})}>
+                       {[1,2,3,4,5].map( num => <option key={num}>{num}</option>)}
+                    </select>
+                    <button onClick= { () => onUpdate ({ isLucky: !isLucky})}>{isLucky ? 'Set to Unlucky' : 'Set to Lucky'}</button>
+                    <label>Lucky <input type='radio' checked={isLucky} onChange={ ev => onUpdate({ isLucky : ev.target.checked})}/></label>
+                    <label>unLucky <input type='radio' checked={!isLucky} onChange={ ev => onUpdate({ isLucky : !ev.target.checked})}/></label>
+                </form>
+            )
+        }
+
+        class App extends Component {
+            constructor() {
+                super()
+                this.state = {
+                    myNumber: 3,
+                    isLucky: false
+                }
+                this.onUpdate = this.onUpdate.bind(this)
+            }
+            onUpdate(change) {
+                this.setState(change)
+            }
+            render() {
+                const {myNumber, isLucky} = this.state
+                const {onUpdate} = this
+                return (
+                    <div>
+                        <MyNumberChoser myNumber = {myNumber} onUpdate={onUpdate} isLucky={isLucky}/>
+                    </div>
+                )
+            }
+        }
+
+        const root = document.querySelector('#root')
+        render(<App />, root)
+    </script>
 </body>
 </html>
