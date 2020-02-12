@@ -1,19 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.js"></script>
     <title>Document</title>
-</head>
-<body>
-<script>
-    const API = 'https://acme-users-api-rev.herokuapp.com/api'
-    const fetch = async() => {
-        const user = { id: '859f3c0b-790a-4761-a4ef-2b8eb6761b1a'}
-        let notes = (await axious.get(`${API}/users/${user.id}/notes`)).data
-    }
-</script>
-    
-</body>
+  </head>
+  <body>
+    <script>
+      const API = "https://acme-users-api-rev.herokuapp.com/api";
+
+      const fetchUser = async () => {
+        const storage = window.localStorage;
+        const userId = storage.getItem("userId");
+
+        if (userId) {
+          try {
+            return (await axios.get(`${API}/users/details/${userId}`)).data;
+          } catch (ex) {
+            storage.removeItem("userId");
+            return fetchUser();
+          }
+        }
+
+        const user = (await axios.get(`${API}/users/random`)).data;
+        storage.setItem("userId", user.id);
+        return user;
+      };
+
+      const setUpApp = async () => {
+        const user = await fetchUser();
+        const notes = (await axios(`${API}/users/${user.id}/notes`)).data;
+      };
+
+      setUpApp();
+    </script>
+  </body>
 </html>
