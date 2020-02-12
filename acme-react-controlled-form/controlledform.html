@@ -14,5 +14,43 @@
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
     <title>Controlled Form Preowork</title>
   </head>
-  <body></body>
+  <body>
+    <div id="#root"></div>
+    <script type="text/babel">
+      const { Component } = React
+      const { render } = ReactDOM
+
+      const NameForm = ({ name, onChangeName }) => {
+        return (
+          <div>
+            <input value={name} onChange={onChangeName} />
+          </div>
+        )
+      }
+
+      class App extends Component {
+        constructor() {
+          super()
+          this.state = {
+            name: 'foo'
+          }
+          this.onChangeName = this.onChangeName.bind(this)
+        }
+        onChangeName(ev) {
+          this.setState({ name: ev.target.value })
+        }
+
+        render() {
+          const { name } = this.state
+          const { onChangeName } = this
+          return (
+            <div>
+              <h1>This name is {name.length} characters long!</h1>
+              <NameForm name={name} onChange={onChangeName} />
+            </div>
+          )
+        }
+      }
+    </script>
+  </body>
 </html>
