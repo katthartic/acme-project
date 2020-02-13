@@ -21,20 +21,30 @@
       const { render } = ReactDOM
 
       class NameForm extends Component {
-        constructor({name}) {
+        constructor({ firstName, lastName }) {
           super()
           this.state = {
-            name
+            firstName,
+            lastName
           }
         }
-        render (){
+        render() {
           const { onChangeName } = this.props
-          const {name} = this.state
+          const { firstName, lastName } = this.state
+          const disabled =
+            firstName === this.props.firstName &&
+            lastName === this.props.lastName
           return (
             <div>
-              <input value={name} onChange={(ev) => this.setState({ name: ev.target.value})} />
-              <button disabled = {name === this.props.name} onClick={() => onChangeName(name)}>Update</button>
-              <button onClick={ () => this.setState({name: this.props.name})}>Cancel</button>
+              <input
+                value={firstName}
+                onChange={ev => this.setState({ firstName: ev.target.value })}
+              />
+              <input
+                value={lastName}
+                onChange={ev => this.setState({ lastName: ev.target.value })}
+              />
+              <button onClick={() => onChangeName(this.state)}>Update</button>
             </div>
           )
         }
@@ -44,27 +54,34 @@
         constructor() {
           super()
           this.state = {
-            name: 'foo'
+            firstName: 'foo',
+            lastName: 'bar'
           }
           this.onChangeName = this.onChangeName.bind(this)
         }
-        onChangeName(name) {
-          this.setState({ name })
+        onChangeName(change) {
+          this.setState(change)
         }
 
         render() {
-          const { name } = this.state
+          const { firstName, lastName } = this.state
           const { onChangeName } = this
           return (
             <div>
-              <h1>This name is {name.length} characters long!</h1>
-              <NameForm name={name} onChangeName={onChangeName} />
+              <h1>
+                Hello {firstName} {lastName}!
+              </h1>
+              <NameForm
+                firstName={firstName}
+                lastName={lastName}
+                onChangeName={onChangeName}
+              />
             </div>
           )
         }
       }
-      const root = document.querySelector("#root");
-      render(<App />, root);
+      const root = document.querySelector('#root')
+      render(<App />, root)
     </script>
   </body>
 </html>
