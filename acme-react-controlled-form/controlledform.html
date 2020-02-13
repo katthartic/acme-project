@@ -15,17 +15,29 @@
     <title>Controlled Form Preowork</title>
   </head>
   <body>
-    <div id="#root"></div>
+    <div id="root"></div>
     <script type="text/babel">
       const { Component } = React
       const { render } = ReactDOM
 
-      const NameForm = ({ name, onChangeName }) => {
-        return (
-          <div>
-            <input value={name} onChange={onChangeName} />
-          </div>
-        )
+      class NameForm extends Component {
+        constructor({name}) {
+          super()
+          this.state = {
+            name
+          }
+        }
+        render (){
+          const { onChangeName } = this.props
+          const {name} = this.state
+          return (
+            <div>
+              <input value={name} onChange={(ev) => this.setState({ name: ev.target.value})} />
+              <button disabled = {name === this.props.name} onClick={() => onChangeName(name)}>Update</button>
+              <button onClick={ () => this.setState({name: this.props.name})}>Cancel</button>
+            </div>
+          )
+        }
       }
 
       class App extends Component {
@@ -36,8 +48,8 @@
           }
           this.onChangeName = this.onChangeName.bind(this)
         }
-        onChangeName(ev) {
-          this.setState({ name: ev.target.value })
+        onChangeName(name) {
+          this.setState({ name })
         }
 
         render() {
@@ -46,11 +58,13 @@
           return (
             <div>
               <h1>This name is {name.length} characters long!</h1>
-              <NameForm name={name} onChange={onChangeName} />
+              <NameForm name={name} onChangeName={onChangeName} />
             </div>
           )
         }
       }
+      const root = document.querySelector("#root");
+      render(<App />, root);
     </script>
   </body>
 </html>
