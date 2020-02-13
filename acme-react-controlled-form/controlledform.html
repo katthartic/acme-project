@@ -27,24 +27,30 @@
             firstName,
             lastName
           }
+          this.onChangeName = this.onChangeName.bind(this)
         }
+
+        onChangeName(ev) {
+          this.setState({ [ev.target.name]: ev.target.value })
+        }
+
         render() {
-          const { onChangeName } = this.props
           const { firstName, lastName } = this.state
+          const { onChangeName } = this
           const disabled =
             firstName === this.props.firstName &&
             lastName === this.props.lastName
           return (
             <div>
               <input
+                name="firstName"
                 value={firstName}
-                onChange={ev => this.setState({ firstName: ev.target.value })}
+                onChange={onChangeName}
               />
-              <input
-                value={lastName}
-                onChange={ev => this.setState({ lastName: ev.target.value })}
-              />
-              <button onClick={() => onChangeName(this.state)}>Update</button>
+              <input name="lastName" value={lastName} onChange={onChangeName} />
+              <button onClick={() => this.props.onChangeUser(this.state)}>
+                Update
+              </button>
             </div>
           )
         }
@@ -57,15 +63,15 @@
             firstName: 'foo',
             lastName: 'bar'
           }
-          this.onChangeName = this.onChangeName.bind(this)
+          this.onChangeUser = this.onChangeUser.bind(this)
         }
-        onChangeName(change) {
+        onChangeUser(change) {
           this.setState(change)
         }
 
         render() {
           const { firstName, lastName } = this.state
-          const { onChangeName } = this
+          const { onChangeUser } = this
           return (
             <div>
               <h1>
@@ -74,7 +80,7 @@
               <NameForm
                 firstName={firstName}
                 lastName={lastName}
-                onChangeName={onChangeName}
+                onChangeUser={onChangeUser}
               />
             </div>
           )
