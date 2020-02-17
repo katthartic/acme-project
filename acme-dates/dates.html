@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*const now = new Date()
+      const halloween = new Date('10/31/2020')
+      const oneDay = 1000 * 60 * 60 * 24
+      const diff = (halloween - now) / oneDay
+      console.log(diff)*/
+
+      const now = moment()
+      //   const halloween = moment('10/31/2020')
+      const halloween = moment('31-10-19', 'DD-MM-YY')
+      //   const diff = halloween.diff(now, 'days')
+      //   console.log(now.toDate())
+      //   console.log(diff)
+
+      console.log(halloween.format('dddd MMM-DD-YY'))
+    </script>
+  </body>
+</html>
