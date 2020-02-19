@@ -31,8 +31,16 @@ const Nav = ({ companies, path }) => {
 }
 
 const Companies = props => {
-  console.log(props)
   const { companies, location } = props
+  const grouped = companies.reduce((acc, company) => {
+    const letter = company.name.slice(0, 1)
+    if (!acc[letter]) acc[letter] = []
+    acc[letter].push(company)
+    return acc
+  }, {})
+
+  console.log(grouped)
+
   return (
     <div id="companiesPage">
       <ul>
