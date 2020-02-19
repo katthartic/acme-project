@@ -3,6 +3,7 @@ body {
   color: black;
 }
 nav {
+  margin-top: 2rem;
   display: flex;
   justify-content: space-around;
 }

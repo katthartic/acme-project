@@ -31,7 +31,8 @@ const Nav = ({ companies, path }) => {
 }
 
 const Companies = props => {
-  const { companies, location } = props
+  const { companies, location, match } = props
+  const { letter } = match.params
   const grouped = companies.reduce((acc, company) => {
     const letter = company.name.slice(0, 1)
     if (!acc[letter]) acc[letter] = []
@@ -39,7 +40,44 @@ const Companies = props => {
     return acc
   }, {})
 
-  console.log(grouped)
+  return (
+    <div>
+      <nav>
+        {Object.keys(grouped)
+          .sort()
+          .map(key => (
+            <Link
+              to={`/companies/${key}`}
+              key={key}
+              className={letter === key ? 'selected' : ''}
+            >
+              {key}
+            </Link>
+          ))}
+      </nav>
+
+      {letter && grouped[letter] && (
+        <div id="companiesPage">
+          <ul>
+            {grouped[letter].map(company => (
+              <li key={company.id}>
+                <Link
+                  to={`/companies/${letter}/${company.id}`}
+                  className={
+                    location.pathname === `/companies/${letter}/${company.id}`
+                      ? 'selected'
+                      : ''
+                  }
+                >
+                  {company.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </div>
+  )
 
   return (
     <div id="companiesPage">
@@ -134,7 +172,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route
-            path="/companies"
+            path="/companies/:letter?"
             render={props => <Companies {...props} companies={companies} />}
           />
         </Switch>
