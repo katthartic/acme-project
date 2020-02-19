@@ -3,14 +3,23 @@ const { render } = ReactDOM
 const { Switch, Link, Route, HashRouter, Redirect } = ReactRouterDOM
 
 const Nav = ({ companies, path }) => {
+  const grouped = companies.reduce((acc, company) => {
+    const letter = company.name.slice(0, 1)
+    if (!acc[letter]) acc[letter] = []
+    acc[letter].push(company)
+    return acc
+  }, {})
+  let letter = ''
+  if (Object.keys(grouped).length > 0) letter = Object.keys(grouped).sort()[0]
   const links = [
+    //This is a great idea
     {
       to: '/',
       text: 'Acme Company Profits with React Router',
       selected: path === '/'
     },
     {
-      to: '/companies',
+      to: `/companies/${letter}`,
       text: `Companies (${companies.length})`,
       selected: path.startsWith('/companies')
     }
@@ -74,30 +83,9 @@ const Companies = props => {
               </li>
             ))}
           </ul>
+          <Route path="/companies/:letter/:id" component={Company} />
         </div>
       )}
-    </div>
-  )
-
-  return (
-    <div id="companiesPage">
-      <ul>
-        {companies.map(company => (
-          <li key={company.id}>
-            <Link
-              to={`/companies/${company.id}`}
-              className={
-                location.pathname === `/companies/${company.id}`
-                  ? 'selected'
-                  : ''
-              }
-            >
-              {company.name}
-            </Link>
-          </li>
-        ))}
-      </ul>
-      <Route path="/companies/:id" component={Company} />
     </div>
   )
 }
