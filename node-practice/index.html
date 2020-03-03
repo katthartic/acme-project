@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.js"></script>
+    <script src="https://unpkg.com/react-router-dom/umd/react-router-dom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+      const { Component } = React
+      const { render } = ReactDOM
+
+      class App extends Component {
+        constructor() {
+          super()
+          this.state = {
+            users: []
+          }
+        }
+
+        async componentDidMount() {
+          const users = (await axios.get('/api/node-practice-users')).data
+          console.log(users)
+          this.setState({ users })
+        }
+        render() {
+          const { users } = this.state
+          if (!users.length) {
+            return <div>No users yet...</div>
+          }
+          return (
+            <ul>
+              {users.map(user => (
+                <li key={user.id}>{user.name}</li>
+              ))}
+            </ul>
+          )
+        }
+      }
+      const root = document.querySelector('#root')
+      render(<App />, root)
+    </script>
+  </body>
+</html>
