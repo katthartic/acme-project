@@ -67,21 +67,42 @@ const addUser = user => {
     .then(() => console.log(user))
 }
 
-addUser({ name: `curly-${Math.random()}` }).then(user => console.log(user))
+//addUser({ name: `curly-${Math.random()}` }).then(user => console.log(user))
 
 http
   .createServer((req, res) => {
     if (req.url === '/api/node-practice-users') {
-      readFile('./node-practice-users.json')
-        .then(data => {
-          res.write(data)
-          res.end()
+      if (req.method === 'GET') {
+        readFile('./node-practice-users.json')
+          .then(data => {
+            res.statusCode = 201
+            res.write(data)
+            res.end()
+          })
+          .catch(ex => {
+            res.statusCode = 500
+            res.write(ex.message)
+            res.end()
+          })
+      } else {
+        let body = ''
+        req.on('data', chunk => {
+          body += chunk
         })
-        .catch(ex => {
-          res.statusCode = 500
-          res.write(ex.message)
-          res.end()
+        req.on('end', () => {
+          const user = JSON.parse(body)
+          addUser(user)
+            .then(_user => {
+              res.write(JSON.stringify(_user))
+              res.end()
+            })
+            .catch(ex => {
+              res.statusCode = 500
+              res.write(ex.message)
+              res.end()
+            })
         })
+      }
     } else if (req.url === '/') {
       readFile('./index.html')
         .then(data => {

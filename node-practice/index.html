@@ -33,8 +33,12 @@
 
         async componentDidMount() {
           const users = (await axios.get('/api/node-practice-users')).data
-          console.log(users)
-          this.setState({ users })
+          const user = (
+            await axios.post('/api/node-practice-users', {
+              name: `curly-${Math.random()}`
+            })
+          ).data
+          this.setState({ users: [...users, user] })
         }
         render() {
           const { users } = this.state
