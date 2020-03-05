@@ -53,9 +53,9 @@ const addUser = user => {
   return readFile('./node-practice-users.json')
     .then(data => {
       const users = JSON.parse(data)
-      let max = users.reduce((acc, user) => {
-        if (user.id > acc) {
-          acc = user.id
+      let max = users.reduce((acc, _user) => {
+        if (_user.id > acc) {
+          acc = _user.id
         }
         return acc
       }, 0)
@@ -64,7 +64,7 @@ const addUser = user => {
       users.push(user)
       return writeFile('./node-practice-users.json', JSON.stringify(users))
     })
-    .then(() => console.log(user))
+    .then(() => user)
 }
 
 //addUser({ name: `curly-${Math.random()}` }).then(user => console.log(user))
