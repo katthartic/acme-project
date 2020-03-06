@@ -1,22 +1,19 @@
-const users = [
-  {
-    id: 1,
-    name: 'moe'
-  },
-  {
-    id: 2,
-    name: 'curly'
-  },
-  {
-    id: 3,
-    name: 'larry'
-  }
-]
+const fs = require('fs')
+const getUsersFromFile = () => {
+  return new Promise((resolve, reject) => {
+    fs.readFile('./users.json', (err, data) => {
+      if (err) {
+        return reject(err)
+      }
+      resolve(JSON.parse(data.toString()))
+    })
+  })
+}
 
-const getUsers = () => {
-  return users
+const readUsers = () => {
+  return getUsersFromFile()
 }
 
 module.exports = {
-  getUsers
+  readUsers
 }
