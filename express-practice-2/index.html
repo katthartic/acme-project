@@ -30,7 +30,7 @@
             ...this.state.users,
             (await axios.post('/api/users', { name: this.state.name })).data
           ]
-          this.setState({ users })
+          this.setState({ users, name: '' })
         }
 
         async componentDidMount() {
