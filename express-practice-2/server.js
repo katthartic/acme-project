@@ -12,12 +12,12 @@ const db = require('./db')
 //   }
 // })
 
+app.use(express.json()) //middleware
+
 app.use((req, res, next) => {
   console.log(`called ${req.method} on ${req.url}`)
   next()
 })
-
-app.use(express.json()) //middleware
 
 console.log(path.join(__dirname, 'index.html'))
 
@@ -41,6 +41,13 @@ app.post('/api/users', async (req, res, next) => {
   }
 })
 
-// db.createUser({ name: 'Bauer' }).then(console.log)
+// ERROR HANDLING
+app.use((err, req, res, next) => {
+  res.status(500).send({ message: err.message })
+})
 
-app.listen(3000, () => console.log('listening on port 3000'))
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`listening on port ${port}`))
+
+// TESTING CODE
+// db.createUser({ name: 'Bauer' }).then(console.log)

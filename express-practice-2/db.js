@@ -7,6 +7,7 @@ const readJSON = () => {
       if (data) {
         try {
           resolve(JSON.parse(data.toString()))
+          //resolve(data.toString())
         } catch (ex) {
           reject(ex)
         }
