@@ -19,8 +19,18 @@
         constructor() {
           super()
           this.state = {
-            users: []
+            users: [],
+            name: ''
           }
+          this.createUser = this.createUser.bind(this)
+        }
+
+        async createUser() {
+          const users = [
+            ...this.state.users,
+            (await axios.post('/api/users', { name: this.state.name })).data
+          ]
+          this.setState({ users })
         }
 
         async componentDidMount() {
@@ -28,14 +38,22 @@
         }
 
         render() {
-          const { users } = this.state
+          const { users, name } = this.state
+          const { createUser } = this
           return (
-            <ul>
-              {' '}
-              {users.map(user => (
-                <li key={user.id}>{user.name}</li>
-              ))}
-            </ul>
+            <div>
+              <input
+                value={name}
+                onChange={ev => this.setState({ name: ev.target.value })}
+              />
+              <button onClick={createUser}>Create</button>
+              <ul>
+                {' '}
+                {users.map(user => (
+                  <li key={user.id}>{user.name}</li>
+                ))}
+              </ul>
+            </div>
           )
         }
       }

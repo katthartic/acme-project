@@ -1,14 +1,1 @@
-[
-  {
-    "id": "1",
-    "name": "moe"
-  },
-  {
-    "id": "2",
-    "name": "curly"
-  },
-  {
-    "id": "3",
-    "name": "larry"
-  }
-]
+{ "name": "Sara", "id": "1" }
