@@ -1,1 +1,14 @@
-{ "name": "Sara", "id": "1" }
+[
+  {
+    "name": "Sara",
+    "id": "1"
+  },
+  {
+    "name": "Katt",
+    "id": "11"
+  },
+  {
+    "name": "Bauer",
+    "id": "111"
+  }
+]
